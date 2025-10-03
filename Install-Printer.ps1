@@ -1,7 +1,6 @@
 <#
 .Synopsis
     Installs a printer driver and printer via Microsoft Intune.
-    Required files should be in the same directory as the script when creating a Win32 app for deployment via Intune.
 
 .Description
     This script is designed for silent installation of printer drivers and printers,
@@ -53,7 +52,7 @@ $PortName = "IP_" + $IPAddress
 # Stage Drivers
 Write-Host "Staging printer drivers..." -ForegroundColor Green
 try {
-    $stageResult = pnputil.exe /add-driver "$psscriptroot\sv0emenu.inf" /install
+    $stageResult = pnputil.exe /add-driver "$psscriptroot\Driver\sv0emenu.inf" /install
     if ($LASTEXITCODE -ne 0) {
         Write-Warning "Driver staging failed with exit code: $LASTEXITCODE"
         exit $LASTEXITCODE
@@ -111,4 +110,4 @@ if ($printDriverExists) {
 
 # Wait for system to stabilize
 Write-Host "Waiting for system to stabilize..." -ForegroundColor Yellow
-Start-Sleep -Seconds 60
+Start-Sleep -Seconds 30
